@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardPinsReviewRouteImport } from './routes/dashboard/pins/review'
 import { Route as DashboardPinsAllRouteImport } from './routes/dashboard/pins/all'
+import { Route as DashboardAdminBannedRouteImport } from './routes/dashboard/admin/banned'
 
 const LoginRouteRoute = LoginRouteRouteImport.update({
   id: '/login',
@@ -46,12 +47,18 @@ const DashboardPinsAllRoute = DashboardPinsAllRouteImport.update({
   path: '/pins/all',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const DashboardAdminBannedRoute = DashboardAdminBannedRouteImport.update({
+  id: '/admin/banned',
+  path: '/admin/banned',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof LoginRouteRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/admin/banned': typeof DashboardAdminBannedRoute
   '/dashboard/pins/all': typeof DashboardPinsAllRoute
   '/dashboard/pins/review': typeof DashboardPinsReviewRoute
 }
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRouteRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/admin/banned': typeof DashboardAdminBannedRoute
   '/dashboard/pins/all': typeof DashboardPinsAllRoute
   '/dashboard/pins/review': typeof DashboardPinsReviewRoute
 }
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/login': typeof LoginRouteRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/admin/banned': typeof DashboardAdminBannedRoute
   '/dashboard/pins/all': typeof DashboardPinsAllRoute
   '/dashboard/pins/review': typeof DashboardPinsReviewRoute
 }
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/dashboard/'
+    | '/dashboard/admin/banned'
     | '/dashboard/pins/all'
     | '/dashboard/pins/review'
   fileRoutesByTo: FileRoutesByTo
@@ -85,6 +95,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/dashboard'
+    | '/dashboard/admin/banned'
     | '/dashboard/pins/all'
     | '/dashboard/pins/review'
   id:
@@ -93,6 +104,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/dashboard/'
+    | '/dashboard/admin/banned'
     | '/dashboard/pins/all'
     | '/dashboard/pins/review'
   fileRoutesById: FileRoutesById
@@ -147,17 +159,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardPinsAllRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/dashboard/admin/banned': {
+      id: '/dashboard/admin/banned'
+      path: '/admin/banned'
+      fullPath: '/dashboard/admin/banned'
+      preLoaderRoute: typeof DashboardAdminBannedRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
   }
 }
 
 interface DashboardRouteRouteChildren {
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardAdminBannedRoute: typeof DashboardAdminBannedRoute
   DashboardPinsAllRoute: typeof DashboardPinsAllRoute
   DashboardPinsReviewRoute: typeof DashboardPinsReviewRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardAdminBannedRoute: DashboardAdminBannedRoute,
   DashboardPinsAllRoute: DashboardPinsAllRoute,
   DashboardPinsReviewRoute: DashboardPinsReviewRoute,
 }

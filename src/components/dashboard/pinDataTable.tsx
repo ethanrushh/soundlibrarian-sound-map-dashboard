@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from "../ui/label";
 import { BanIcon, CheckCircleIcon, GavelIcon, Loader, XIcon } from "lucide-react";
 import { AlertDialogTitle, AlertDialogTrigger, AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogFooter } from "../ui/alert-dialog";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { apiUrl } from "@/lib/utils";
 import PinStatusBadge from "./pinStatusBadge";
 
@@ -42,8 +42,13 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
             await refreshPins()
             setReviewingPin(null)
         }
-        catch {
-            setError('An unknown error occured while trying to perform this action. Please try again later. Logging out and back in may help.')
+        catch (e) {
+            if (isAxiosError(e) && e.status === 409) {
+                setError('This user is already banned')
+            }
+            else {
+                setError('An unknown error occured while trying to perform this action. Please try again later. Logging out and back in may help.')
+            }
         }
         finally {
             setPendingAction(null)
@@ -147,10 +152,12 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                                         </Button>
                                     </AlertDialogTrigger>
 
-                                    <Button variant='destructive' disabled={loading} onClick={() => setApprovalOnPin(ReviewAction.Ban)}>
-                                        { pendingAction === ReviewAction.Ban ? <Loader className="animate-spin" /> : <GavelIcon /> }
-                                        Ban
-                                    </Button>
+                                    <AlertDialogTrigger asChild>
+                                        <Button variant='destructive' disabled={loading} onClick={() => setApprovalOnPin(ReviewAction.Ban)}>
+                                            { pendingAction === ReviewAction.Ban ? <Loader className="animate-spin" /> : <GavelIcon /> }
+                                            Ban
+                                        </Button>
+                                    </AlertDialogTrigger>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>

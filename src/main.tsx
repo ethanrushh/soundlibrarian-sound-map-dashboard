@@ -40,7 +40,7 @@ if (rootElement && !rootElement.innerHTML) {
     const root = ReactDOM.createRoot(rootElement)
     root.render(
         <StrictMode>
-            <ThemeProvider defaultTheme="dark" storageKey="intradesign-dashboard-theme">
+            <ThemeProvider defaultTheme="system" storageKey="intradesign-dashboard-theme">
                 <AuthContextProvider>
                     <App />
                 </AuthContextProvider>

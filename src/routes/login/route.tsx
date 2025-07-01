@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-import { AxiosError } from "axios"
+import { isAxiosError } from "axios"
 import { useState } from "react"
 import { Label } from "@/components/ui/label"
 import useAuth from "@/hooks/useAuth"
@@ -70,7 +70,7 @@ function LogInPage() {
         }
         catch (e) {
             // If bad username/password
-            if ((e as AxiosError).status === 401) {
+            if (isAxiosError(e) && e.status === 401) {
                 setShowBadCredentials(true)
             }
             else {
