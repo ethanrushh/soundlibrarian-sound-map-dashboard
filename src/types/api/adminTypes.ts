@@ -31,6 +31,7 @@ export type AdminPin = {
     artworkUrl?: string,
     dateRecordedUtc: string,
     createdAtUtc: string,
+    creatorIp: string
 
     status: PinStatus
 }

@@ -194,7 +194,7 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                                     </TableCell>
 
                                     <TableCell>
-                                        WIP
+                                        {x.creatorIp}
                                     </TableCell>
 
                                     <TableCell>
