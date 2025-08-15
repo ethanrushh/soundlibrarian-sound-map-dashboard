@@ -46,8 +46,7 @@ export function AuthContextProvider(props: { children: ReactNode }) {
     })
 
     const logIn = useCallback(async (credentials: z.infer<typeof LoginSchema>) => {
-        await axios.post(apiUrl() + '/auth/log-in', null, {
-            params: credentials,
+        await axios.post(apiUrl() + '/auth/log-in', credentials, {
             withCredentials: true
         })
     }, [])
