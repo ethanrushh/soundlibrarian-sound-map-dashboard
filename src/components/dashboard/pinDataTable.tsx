@@ -186,9 +186,11 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                     </TableHeader>
 
                     {
-                        pins.map(x => (
+                        pins.map((x, idx) => (
                             <TableBody key={x.id}>
-                                <TableRow>
+                                <TableRow style={{
+                                    background: idx % 2 === 0 ? '#ccc' : '#eee'
+                                }}>
                                     <TableCell>
                                         <PinStatusBadge status={x.status} />
                                     </TableCell>
