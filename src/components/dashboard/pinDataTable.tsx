@@ -189,7 +189,7 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                         pins.map((x, idx) => (
                             <TableBody key={x.id}>
                                 <TableRow style={{
-                                    background: idx % 2 === 0 ? '#222' : '#444'
+                                    background: idx % 2 === 0 ? '#BBB' : '#999'
                                 }}>
                                     <TableCell>
                                         <PinStatusBadge status={x.status} />
