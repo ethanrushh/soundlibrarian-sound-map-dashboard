@@ -178,6 +178,7 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                 <Table className="border rounded-lg">
                     <TableHeader>
                         <TableRow>
+                            <TableHead>#</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>IP Address</TableHead>
                             <TableHead>When Created</TableHead>
@@ -191,6 +192,10 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                                 <TableRow style={{
                                     background: idx % 2 === 0 ? '#BBB' : '#999'
                                 }}>
+                                    <TableCell>
+                                        {idx}
+                                    </TableCell>
+
                                     <TableCell>
                                         <PinStatusBadge status={x.status} />
                                     </TableCell>
