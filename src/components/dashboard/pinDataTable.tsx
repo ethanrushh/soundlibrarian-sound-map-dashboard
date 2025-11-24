@@ -193,7 +193,7 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                                     background: idx % 2 === 0 ? '#BBB' : '#999'
                                 }}>
                                     <TableCell>
-                                        {idx}
+                                        {idx + 1}
                                     </TableCell>
 
                                     <TableCell>
