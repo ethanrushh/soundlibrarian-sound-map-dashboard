@@ -99,7 +99,7 @@ function LogInPage() {
                                     <FormItem>
                                         <FormLabel>Username</FormLabel>
                                         <FormControl>
-                                            <Input placeholder='example@domain.com' {...field} />
+                                            <Input placeholder='' {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
