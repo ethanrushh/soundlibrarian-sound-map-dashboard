@@ -96,6 +96,11 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                         </div>
 
                         <div>
+                            <Label className="text-muted-foreground">Recorded With:</Label>
+                            <p>{reviewingPin?.recordedWith ?? 'Unspecified'}</p>
+                        </div>
+
+                        <div>
                             <Label className="text-muted-foreground mb-2">Audio Clip:</Label>
                             {
                                 reviewingPin !== null && reviewingPin.audioUrl ? (

@@ -23,6 +23,7 @@ export type AdminPin = {
 
     longitude: number,
     latitude: number,
+    recordedWith?: string,
 
     title: string,
     description: string,
