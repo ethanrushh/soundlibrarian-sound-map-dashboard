@@ -1,4 +1,4 @@
-import { type AdminPin } from "@/types/api/adminTypes";
+import { PinStatus, type AdminPin } from "@/types/api/adminTypes";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -9,12 +9,14 @@ import { AlertDialogTitle, AlertDialogTrigger, AlertDialog, AlertDialogContent, 
 import axios, { isAxiosError } from "axios";
 import { apiUrl } from "@/lib/utils";
 import PinStatusBadge from "./pinStatusBadge";
+import EditPinDialog from "@/dialog/editPinTialog";
 
-enum ReviewAction { Ban, Deny, Approve }
+export enum ReviewAction { Ban, Deny, Approve }
 
 export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], refreshPins(): Promise<void>}) {
 
     const [reviewingPin, setReviewingPin] = useState<AdminPin | null>(null)
+    const [editingPin, setEditingPin] = useState<AdminPin | null>(null)
     const [pendingAction, setPendingAction] = useState<ReviewAction | null>(null)
     const loading = pendingAction !== null
     const [error, setError] = useState<string | null>(null)
@@ -179,6 +181,8 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                 </DialogContent>
             </Dialog>
 
+            <EditPinDialog open={editingPin !== null} onOpenChange={o => setEditingPin(p => o ? p : null)} pin={editingPin} />
+
             <div className="w-full px-10">
                 <Table className="border rounded-lg">
                     <TableHeader>
@@ -198,7 +202,7 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                                     background: idx % 2 === 0 ? '#BBB' : '#999'
                                 }}>
                                     <TableCell>
-                                        {idx + 1}
+                                        {x.id}
                                     </TableCell>
 
                                     <TableCell>
@@ -213,7 +217,14 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                                         {new Date(x.createdAtUtc).toLocaleDateString()}
                                     </TableCell>
 
-                                    <TableCell className="flex flex-row justify-end">
+                                    <TableCell className="flex flex-row justify-end gap-2">
+                                        {
+                                            x.status !== PinStatus.Removed && x.status !== PinStatus.Denied && (
+                                                <Button className="p-2 text-sm" variant='outline' onClick={() => setEditingPin(x)}>
+                                                    Edit
+                                                </Button>
+                                            )
+                                        }
                                         <Button className="p-2 text-sm" variant='outline' onClick={() => setReviewingPin(x)}>
                                             Review
                                         </Button>
