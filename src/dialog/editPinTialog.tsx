@@ -13,7 +13,8 @@ import { useEffect, useState } from "react";
 export default function EditPinDialog(props: {
     pin: AdminPin | null, 
     open: boolean, 
-    onOpenChange: (open: boolean) => void
+    onOpenChange: (open: boolean) => void,
+    setPins: React.Dispatch<React.SetStateAction<AdminPin[] | null>>
 }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
@@ -39,7 +40,7 @@ export default function EditPinDialog(props: {
             setLoading(true);
             setError(null);
             
-            await axios.post(apiUrl() + `/dashboard/pins/${props.pin?.id ?? -1}/edit`, {
+            const newPin = await axios.post<AdminPin>(apiUrl() + `/dashboard/pins/${props.pin?.id ?? -1}/edit`, {
                 longitude: Number.parseFloat(longitudeValue),
                 latitude: Number.parseFloat(latitudeValue),
                 recordedWith: recordedWithValue,
@@ -50,7 +51,16 @@ export default function EditPinDialog(props: {
                 withCredentials: true
             })
 
-            window.location.reload()
+            const pinToRemove = props.pin
+
+            props.onOpenChange(false)
+
+            if (pinToRemove === null) {
+                console.warn("Pin to remove is null. A duplicate is likely to occur")
+            }
+
+            // Add new pin, remove old
+            props.setPins((pins) => pins === null ? null : [newPin.data, ...pins].filter(p => p.id !== pinToRemove?.id))
         }
         catch (e) {
             console.error(e)

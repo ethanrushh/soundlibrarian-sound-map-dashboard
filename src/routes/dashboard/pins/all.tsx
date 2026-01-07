@@ -51,7 +51,7 @@ function RouteComponent() {
                         pins.length <= 0 ? (
                             <p className='text-center'>There are no pins to view.</p>
                         ) : (
-                            <PinDataTable refreshPins={fetchPins} pins={pins} />
+                            <PinDataTable refreshPins={fetchPins} pins={pins} setPins={setPins} />
                         )
                     )
                 )

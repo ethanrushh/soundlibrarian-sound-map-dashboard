@@ -13,7 +13,7 @@ import EditPinDialog from "@/dialog/editPinTialog";
 
 export enum ReviewAction { Ban, Deny, Approve }
 
-export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], refreshPins(): Promise<void>}) {
+export default function PinDataTable({pins, refreshPins, setPins}: {pins: AdminPin[], refreshPins(): Promise<void>, setPins: React.Dispatch<React.SetStateAction<AdminPin[] | null>>}) {
 
     const [reviewingPin, setReviewingPin] = useState<AdminPin | null>(null)
     const [editingPin, setEditingPin] = useState<AdminPin | null>(null)
@@ -181,7 +181,7 @@ export default function PinDataTable({pins, refreshPins}: {pins: AdminPin[], ref
                 </DialogContent>
             </Dialog>
 
-            <EditPinDialog open={editingPin !== null} onOpenChange={o => setEditingPin(p => o ? p : null)} pin={editingPin} />
+            <EditPinDialog open={editingPin !== null} onOpenChange={o => setEditingPin(p => o ? p : null)} pin={editingPin} setPins={setPins} />
 
             <div className="w-full px-10">
                 <Table className="border rounded-lg">
