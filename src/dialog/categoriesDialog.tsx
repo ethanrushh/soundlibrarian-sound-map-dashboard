@@ -16,7 +16,7 @@ export function CategoriesDialog(props: {
 
     const [categories, setCategories] = useState<ApiCategory[] | null>(null)
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
+    const [, setError] = useState<string | null>(null)
 
     const [applying, setApplying] = useState(false)
     const [applyError, setApplyError] = useState<string | null>(null)
