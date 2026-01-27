@@ -34,7 +34,9 @@ export type AdminPin = {
     createdAtUtc: string,
     creatorIp: string
 
-    status: PinStatus
+    status: PinStatus,
+
+    categories: ApiCategory[]
 }
 
 // Copied from API side
@@ -60,3 +62,17 @@ export function PinStatusToReadable(status: PinStatus) {
             return 'Unknown'
     }
 }
+
+// public class CategoryOutDto
+// {
+//     public long Id { get; set; }
+//     public string Name { get; set; } = string.Empty;
+//     public CategoryStatus Status { get; set; }
+// }
+export type ApiCategory = {
+    id: number
+    name: string
+    status: CategoryStatus
+}
+
+export enum CategoryStatus { Active, Deleted }

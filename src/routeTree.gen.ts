@@ -13,6 +13,7 @@ import { Route as LoginRouteRouteImport } from './routes/login/route'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as DashboardCategoriesIndexRouteImport } from './routes/dashboard/categories/index'
 import { Route as DashboardPinsReviewRouteImport } from './routes/dashboard/pins/review'
 import { Route as DashboardPinsAllRouteImport } from './routes/dashboard/pins/all'
 import { Route as DashboardAdminBannedRouteImport } from './routes/dashboard/admin/banned'
@@ -37,6 +38,12 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const DashboardCategoriesIndexRoute =
+  DashboardCategoriesIndexRouteImport.update({
+    id: '/categories/',
+    path: '/categories/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
 const DashboardPinsReviewRoute = DashboardPinsReviewRouteImport.update({
   id: '/pins/review',
   path: '/pins/review',
@@ -61,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/admin/banned': typeof DashboardAdminBannedRoute
   '/dashboard/pins/all': typeof DashboardPinsAllRoute
   '/dashboard/pins/review': typeof DashboardPinsReviewRoute
+  '/dashboard/categories': typeof DashboardCategoriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,6 +77,7 @@ export interface FileRoutesByTo {
   '/dashboard/admin/banned': typeof DashboardAdminBannedRoute
   '/dashboard/pins/all': typeof DashboardPinsAllRoute
   '/dashboard/pins/review': typeof DashboardPinsReviewRoute
+  '/dashboard/categories': typeof DashboardCategoriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,6 +88,7 @@ export interface FileRoutesById {
   '/dashboard/admin/banned': typeof DashboardAdminBannedRoute
   '/dashboard/pins/all': typeof DashboardPinsAllRoute
   '/dashboard/pins/review': typeof DashboardPinsReviewRoute
+  '/dashboard/categories/': typeof DashboardCategoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,6 +100,7 @@ export interface FileRouteTypes {
     | '/dashboard/admin/banned'
     | '/dashboard/pins/all'
     | '/dashboard/pins/review'
+    | '/dashboard/categories'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -98,6 +109,7 @@ export interface FileRouteTypes {
     | '/dashboard/admin/banned'
     | '/dashboard/pins/all'
     | '/dashboard/pins/review'
+    | '/dashboard/categories'
   id:
     | '__root__'
     | '/'
@@ -107,6 +119,7 @@ export interface FileRouteTypes {
     | '/dashboard/admin/banned'
     | '/dashboard/pins/all'
     | '/dashboard/pins/review'
+    | '/dashboard/categories/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/dashboard/categories/': {
+      id: '/dashboard/categories/'
+      path: '/categories'
+      fullPath: '/dashboard/categories'
+      preLoaderRoute: typeof DashboardCategoriesIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/dashboard/pins/review': {
       id: '/dashboard/pins/review'
       path: '/pins/review'
@@ -174,6 +194,7 @@ interface DashboardRouteRouteChildren {
   DashboardAdminBannedRoute: typeof DashboardAdminBannedRoute
   DashboardPinsAllRoute: typeof DashboardPinsAllRoute
   DashboardPinsReviewRoute: typeof DashboardPinsReviewRoute
+  DashboardCategoriesIndexRoute: typeof DashboardCategoriesIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
@@ -181,6 +202,7 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardAdminBannedRoute: DashboardAdminBannedRoute,
   DashboardPinsAllRoute: DashboardPinsAllRoute,
   DashboardPinsReviewRoute: DashboardPinsReviewRoute,
+  DashboardCategoriesIndexRoute: DashboardCategoriesIndexRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(

@@ -9,7 +9,9 @@ import { AlertDialogTitle, AlertDialogTrigger, AlertDialog, AlertDialogContent, 
 import axios, { isAxiosError } from "axios";
 import { apiUrl } from "@/lib/utils";
 import PinStatusBadge from "./pinStatusBadge";
-import EditPinDialog from "@/dialog/editPinTialog";
+import EditPinDialog from "@/hooks/editPinDialog";
+import { CategoriesDialog } from "@/dialog/categoriesDialog";
+import CategoryBadge from "./categoryBadge";
 
 export enum ReviewAction { Ban, Deny, Approve }
 
@@ -125,6 +127,21 @@ export default function PinDataTable({pins, refreshPins, setPins}: {pins: AdminP
                                 )
                             }
                         </div>
+
+                        <div>
+                            <Label className="text-muted-foreground mb-2">Categories:</Label>
+                            <div className="flex flex-row flex-wrap gap-2">
+                                {
+                                    reviewingPin === null || reviewingPin.categories.length <= 0 ? (
+                                        <p className="text-xs">None set</p>
+                                    ) : (
+                                        reviewingPin.categories.map(x => (
+                                            <CategoryBadge category={x.name} />
+                                        ))
+                                    )
+                                }
+                            </div>
+                        </div>
                     </div>
 
                     <hr className="my-4" />
@@ -220,9 +237,12 @@ export default function PinDataTable({pins, refreshPins, setPins}: {pins: AdminP
                                     <TableCell className="flex flex-row justify-end gap-2">
                                         {
                                             x.status !== PinStatus.Removed && x.status !== PinStatus.Denied && (
-                                                <Button className="p-2 text-sm" variant='outline' onClick={() => setEditingPin(x)}>
-                                                    Edit
-                                                </Button>
+                                                <>
+                                                    <CategoriesDialog pin={x} setPins={setPins} />
+                                                    <Button className="p-2 text-sm" variant='outline' onClick={() => setEditingPin(x)}>
+                                                        Edit
+                                                    </Button>
+                                                </>
                                             )
                                         }
                                         <Button className="p-2 text-sm" variant='outline' onClick={() => setReviewingPin(x)}>

@@ -58,6 +58,13 @@ function RouteComponent() {
                                     </Button>
                                 </Link>
                             </li>
+                            <li>
+                                <Link to='/dashboard/categories'>
+                                    <Button variant='ghost'>
+                                        Categories
+                                    </Button>
+                                </Link>
+                            </li>
                         </ul>
 
                         <h4 className='text-gray-400 text-xs flex flex-row justify-start items-center gap-1'>
@@ -71,20 +78,6 @@ function RouteComponent() {
                                         Banned Users
                                     </Button>
                                 </Link>
-                            </li>
-                        </ul>
-
-                        <h4 className='text-gray-400 text-xs flex flex-row justify-start items-center gap-1'>
-                            <UserIcon className='w-[1.5em]' />
-                            User
-                        </h4>
-                        <ul className='text-xs font-bold'>
-                            <li>
-                                <LogOutDialog>
-                                    <Button variant='ghost'>
-                                        Log Out
-                                    </Button>
-                                </LogOutDialog>
                             </li>
                         </ul>
                     </nav>
