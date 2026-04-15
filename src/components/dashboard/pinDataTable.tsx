@@ -236,11 +236,10 @@ export default function PinDataTable({pins, refreshPins, setPins}: {pins: AdminP
                                     </TableCell>
 
                                     <TableCell className="flex flex-row justify-end gap-2">
-                                        <PinVariantEditor pin={x} setPins={setPins} thisIndex={idx} />
-
                                         {
                                             x.status !== PinStatus.Removed && x.status !== PinStatus.Denied && (
                                                 <>
+                                                    <PinVariantEditor pin={x} setPins={setPins} thisIndex={idx} />
                                                     <CategoriesDialog pin={x} setPins={setPins} />
                                                     <Button className="p-2 text-sm" variant='outline' onClick={() => setEditingPin(x)}>
                                                         Edit
