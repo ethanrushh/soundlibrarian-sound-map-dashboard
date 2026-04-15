@@ -36,7 +36,9 @@ export type AdminPin = {
 
     status: PinStatus,
 
-    categories: ApiCategory[]
+    categories: ApiCategory[],
+
+    variant?: PinVariant
 }
 
 // Copied from API side
@@ -45,6 +47,11 @@ export enum PinStatus {
     Approved = 1,
     Denied = 2,
     Removed = 3
+}
+
+export enum PinVariant {
+    Default = 0,
+    User = 1
 }
 
 export function PinStatusToReadable(status: PinStatus) {

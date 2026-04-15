@@ -12,6 +12,7 @@ import PinStatusBadge from "./pinStatusBadge";
 import EditPinDialog from "@/hooks/editPinDialog";
 import { CategoriesDialog } from "@/dialog/categoriesDialog";
 import CategoryBadge from "./categoryBadge";
+import PinVariantEditor from "./pinVariantEditor";
 
 export enum ReviewAction { Ban, Deny, Approve }
 
@@ -235,6 +236,8 @@ export default function PinDataTable({pins, refreshPins, setPins}: {pins: AdminP
                                     </TableCell>
 
                                     <TableCell className="flex flex-row justify-end gap-2">
+                                        <PinVariantEditor pin={x} setPins={setPins} thisIndex={idx} />
+
                                         {
                                             x.status !== PinStatus.Removed && x.status !== PinStatus.Denied && (
                                                 <>
